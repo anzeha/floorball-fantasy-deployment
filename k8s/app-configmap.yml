@@ -16,3 +16,4 @@ data:
   MAILER_EMAIL: "info.test@gmail.com"
   MAILER_PASSWORD: "lol"
   PASSWORD_RESET_URL: "http://localhost:4200/resetPassword"
+  PORT: "8080"

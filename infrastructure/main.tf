@@ -48,6 +48,14 @@ resource "helm_release" "argo" {
   namespace = "argocd"
 }
 
+resource "helm_release" "argo_image_updater" {
+  name = "argocd-image-updater"
+  repository = "https://argoproj.github.io/argo-helm"
+  chart      = "argocd-image-updater"
+  create_namespace = true
+  namespace = "argocd"
+}
+
 resource "kubernetes_namespace_v1" "floorball_fantasy_namespace" {
     metadata {
       name = "floorball-fantasy"

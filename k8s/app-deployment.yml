@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: floorball-fantasy-api-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: floorball-fantasy-api
+  template:
+    metadata:
+      labels:
+        app: floorball-fantasy-api
+    spec:
+      containers:
+        - image: anzeha/floorball-fantasy:314b78b
+          name: floorball-fantasy-api
+          env:
+          - name: NODE_ENV
+            value: prod
+          - name: POSTGRES_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: app-config
+                key: POSTGRES_HOST
+          - name: POSTGRES_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: app-config
+                key: POSTGRES_PORT
+          - name: POSTGRES_DB
+            valueFrom:
+              configMapKeyRef:
+                name: app-config
+                key: POSTGRES_DB
+          - name: POSTGRES_USER
+            valueFrom:
+              configMapKeyRef:
+                name: app-config
+                key: POSTGRES_USER
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: POSTGRES_PASSWORD
+          command: ["./node_modules/typeorm/cli.js migration:run -d ./dist/app.datasource.js"]
+          ports:
+            - containerPort: 8080
+              name: server
+              protocol: TCP
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: floorball-fantasy-api
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8081
+      protocol: TCP
+      targetPort: server
+  selector:
+    app: floorball-fantasy-api

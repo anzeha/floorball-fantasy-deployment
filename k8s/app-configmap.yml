@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+data:
+  POSTGRES_HOST: "postgres-service"
+  POSTGRES_PORT: "5432"
+  POSTGRES_DB: "floorball_fantasy"
+  POSTGRES_USER: "admin"
+  POSTGRES_PASSWORD: "password"
+  ADMIN_EMAIL: "testtest@gmail.com"
+  ADMIN_PASSWORD: "admin"
+  ADMIN_USERNAME: "admin"
+  JWT_SECRET: "abcdefgh"
+  MAILER_EMAIL: "info.test@gmail.com"
+  MAILER_PASSWORD: "lol"
+  PASSWORD_RESET_URL: "http://localhost:4200/resetPassword"

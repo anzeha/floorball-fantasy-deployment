@@ -9,7 +9,6 @@ data:
   PG_DATABASE: "floorball_fantasy"
   PG_PORT: "5432"
   PG_HOST: "postgres-service"
-  POSTGRES_PASSWORD: "password"
   ADMIN_EMAIL: "testtest@gmail.com"
   ADMIN_PASSWORD: "admin"
   ADMIN_USERNAME: "admin"

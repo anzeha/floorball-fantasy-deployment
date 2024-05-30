@@ -40,10 +40,7 @@ spec:
                 name: app-config
                 key: PG_USERNAME
           - name: PG_PASSWORD
-            valueFrom:
-            configMapKeyRef:
-              name: app-config
-              key: PG_PASSWORD
+            value: "password"
           # command: ["./node_modules/typeorm/cli.js migration:run -d ./dist/app.datasource.js"]
           ports:
             - containerPort: 8080

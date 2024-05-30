@@ -14,7 +14,7 @@ spec:
         app: floorball-fantasy-api
     spec:
       containers:
-        - image: anzeha/floorball-fantasy:314b78b
+        - image: anzeha/floorball-fantasy:latest
           name: floorball-fantasy-api
           env:
           - name: NODE_ENV

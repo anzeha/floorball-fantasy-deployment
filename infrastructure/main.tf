@@ -47,3 +47,9 @@ resource "helm_release" "argo" {
   create_namespace = true
   namespace = "argocd"
 }
+
+resource "kubernetes_namespace_v1" "floorball_fantasy_namespace" {
+    metadata {
+      name = "floorball-fantasy"
+    }
+}

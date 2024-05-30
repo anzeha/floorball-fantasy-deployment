@@ -4,10 +4,11 @@ metadata:
   name: app-config
   namespace: floorball-fantasy
 data:
-  POSTGRES_HOST: "postgres-service"
-  POSTGRES_PORT: "5432"
-  POSTGRES_DB: "floorball_fantasy"
-  POSTGRES_USER: "admin"
+  PG_USERNAME: "admin"
+  PG_PASSWORD: "password"
+  PG_DATABASE: "floorball_fantasy"
+  PG_PORT: "5432"
+  PG_HOST: "postgres-service"
   POSTGRES_PASSWORD: "password"
   ADMIN_EMAIL: "testtest@gmail.com"
   ADMIN_PASSWORD: "admin"

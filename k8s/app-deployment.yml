@@ -14,7 +14,7 @@ spec:
         app: floorball-fantasy-api
     spec:
       containers:
-        - image: anzeha/floorball-fantasy:lol
+        - image: anzeha/floorball-fantasy:lol123
           name: floorball-fantasy-api
           env:
           - name: NODE_ENV
@@ -81,7 +81,7 @@ spec:
               configMapKeyRef:
                 name: app-config
                 key: PORT
-          command: ["./node_modules/typeorm/cli.js migration:run -d ./dist/app.datasource.js"]
+          # command: ["./node_modules/typeorm/cli.js migration:run -d ./dist/app.datasource.js"]
           ports:
             - containerPort: 8080
               name: server

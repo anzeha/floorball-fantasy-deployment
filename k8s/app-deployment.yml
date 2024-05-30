@@ -41,6 +41,41 @@ spec:
                 key: PG_USERNAME
           - name: PG_PASSWORD
             value: "password"
+          - name: ADMIN_EMAIL
+            valueFrom:
+              configMapKeyRef:
+                name: app-config
+                key: ADMIN_EMAIL
+          - name: ADMIN_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                name: app-config
+                key: ADMIN_PASSWORD
+          - name: ADMIN_USERNAME
+            valueFrom:
+              configMapKeyRef:
+                name: app-config
+                key: ADMIN_USERNAME
+          - name: JWT_SECRET
+            valueFrom:
+              configMapKeyRef:
+                name: app-config
+                key: JWT_SECRET
+          - name: MAILER_EMAIL
+            valueFrom:
+              configMapKeyRef:
+                name: app-config
+                key: MAILER_EMAIL
+          - name: MAILER_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                name: app-config
+                key: MAILER_PASSWORD
+          - name: PASSWORD_RESET_URL
+            valueFrom:
+              configMapKeyRef:
+                name: app-config
+                key: PASSWORD_RESET_URL
           # command: ["./node_modules/typeorm/cli.js migration:run -d ./dist/app.datasource.js"]
           ports:
             - containerPort: 8080

@@ -46,6 +46,11 @@ resource "helm_release" "argo" {
   chart      = "argo-cd"
   create_namespace = true
   namespace = "argocd"
+
+  # Does not work, rather use kubernetes manifest resource
+  # values = [
+  #   "${file("./values/argo-cd.yml")}"
+  # ]
 }
 
 resource "helm_release" "argo_image_updater" {
@@ -60,4 +65,27 @@ resource "kubernetes_namespace_v1" "floorball_fantasy_namespace" {
     metadata {
       name = "floorball-fantasy"
     }
+}
+
+resource "kubernetes_manifest" "argocd_application" {
+  manifest = {
+    apiVersion = "argoproj.io/v1alpha1"
+    kind       = "Application"
+    metadata = {
+      name      = "floorball-fantasy"
+      namespace = "argocd"
+    }
+    spec = {
+      project = "default"
+      source = {
+        repoURL        = "https://github.com/anzeha/floorball-fantasy-deployment.git"
+        targetRevision = "HEAD"
+        path           = "k8s"
+      }
+      destination = {
+        server    = "https://kubernetes.default.svc"
+        namespace = "floorball-fantasy"
+      }
+    }
+  }
 }

@@ -40,7 +40,12 @@ resource "null_resource" "apply_yaml" {
   }
 }
 
+resource "htpasswd_password" "hash" {
+  password = var.argo_admin_password
+}
+
 resource "helm_release" "argo" {
+  depends_on = [ htpasswd_password.hash ]
   name = "argocd"
   repository = "https://argoproj.github.io/argo-helm"
   chart      = "argo-cd"
@@ -51,6 +56,25 @@ resource "helm_release" "argo" {
   # values = [
   #   "${file("./values/argo-cd.yml")}"
   # ]
+  set {
+    name  = "configs.secret.argocdServerAdminPassword"
+    value = htpasswd_password.hash.bcrypt
+  }
+}
+
+#TODO update te newer version
+resource "helm_release" "argo_apps" {
+  depends_on = [ htpasswd_password.hash, helm_release.argo ]
+  name = "argocd-apps"
+  repository = "https://argoproj.github.io/argo-helm"
+  chart      = "argocd-apps"
+  create_namespace = true
+  namespace = "argocd"
+  version    = "0.0.8"
+
+  values = [
+    "${file("./values/values.yml")}"
+  ]
 }
 
 resource "helm_release" "argo_image_updater" {
@@ -65,27 +89,4 @@ resource "kubernetes_namespace_v1" "floorball_fantasy_namespace" {
     metadata {
       name = "floorball-fantasy"
     }
-}
-
-resource "kubernetes_manifest" "argocd_application" {
-  manifest = {
-    apiVersion = "argoproj.io/v1alpha1"
-    kind       = "Application"
-    metadata = {
-      name      = "floorball-fantasy"
-      namespace = "argocd"
-    }
-    spec = {
-      project = "default"
-      source = {
-        repoURL        = "https://github.com/anzeha/floorball-fantasy-deployment.git"
-        targetRevision = "HEAD"
-        path           = "k8s"
-      }
-      destination = {
-        server    = "https://kubernetes.default.svc"
-        namespace = "floorball-fantasy"
-      }
-    }
-  }
 }

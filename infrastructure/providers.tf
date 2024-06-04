@@ -12,6 +12,10 @@ terraform {
     null = {
       source = "hashicorp/null"
     }
+    htpasswd = {
+      version = "~> 1.2.1"
+      source = "loafoe/htpasswd"
+    }
   }
 }
 
@@ -23,4 +27,7 @@ provider "helm" {
   kubernetes {
     config_path = kind_cluster.kind_cluster_dev.kubeconfig_path
   }
+}
+
+provider "htpasswd" {
 }

@@ -1,0 +1,21 @@
+applications:
+    - name: argo-apps
+      namespace: argocd
+      destination:
+        namespace: floorball-fantasy
+        server: https://kubernetes.default.svc
+      project: default
+      source:
+        path: k8s
+        repoURL: https://github.com/anzeha/floorball-fantasy-deployment.git
+        targetRevision: main
+        directory:
+          recurse: true
+          jsonnet: {}
+      syncPolicy:
+        automated:
+          selfHeal: true
+          prune: true
+projects: []
+applicationsets: []
+extensions: []

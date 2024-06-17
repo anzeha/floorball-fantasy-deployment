@@ -1,6 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
   name: postgres-deployment
   namespace: floorball-fantasy
   labels:
@@ -52,6 +54,8 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
   name: postgres-service
   namespace: floorball-fantasy
   labels:

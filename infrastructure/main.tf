@@ -85,6 +85,16 @@ resource "helm_release" "argo_image_updater" {
   namespace = "argocd"
 }
 
+resource "helm_release" "atlas_operator" {
+  name       = "atlas-operator"
+  repository = "oci://ghcr.io/ariga/charts"
+  chart      = "atlas-operator"
+  namespace  = "atlas-operator"
+  create_namespace = true
+
+  # Add any additional configuration or values here if needed
+}
+
 resource "kubernetes_namespace_v1" "floorball_fantasy_namespace" {
     metadata {
       name = "floorball-fantasy"

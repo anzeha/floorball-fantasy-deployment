@@ -4,6 +4,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "1"
   name: myapp
+  namespace: floorball-fantasy
 spec:
   url: postgresql://admin:password@postgres-service:5432/floorball_fantasy
   schema:

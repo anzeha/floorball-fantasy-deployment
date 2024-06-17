@@ -6,7 +6,7 @@ metadata:
   name: myapp
   namespace: floorball-fantasy
 spec:
-  url: postgresql://admin:password@postgres-service:5432/floorball_fantasy?sslmode=disable
+  url: postgresql://admin:password@postgres-service.floorball-fantasy:5432/floorball_fantasy?sslmode=disable
   schema:
     sql: |
       create table users (

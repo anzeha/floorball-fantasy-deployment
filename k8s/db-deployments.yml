@@ -1,0 +1,118 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-users
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db-users
+  template:
+    metadata:
+      labels:
+        app: db-users
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:latest
+          env:
+            - name: POSTGRES_USER
+              value: "test"
+            - name: POSTGRES_PASSWORD
+              value: "test"
+            - name: POSTGRES_DB
+              value: "ffantasy_users_db"
+          ports:
+            - containerPort: 5432
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db-users
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5432
+  selector:
+    app: db-users
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-game-domain
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db-game-domain
+  template:
+    metadata:
+      labels:
+        app: db-game-domain
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:latest
+          env:
+            - name: POSTGRES_USER
+              value: "test"
+            - name: POSTGRES_PASSWORD
+              value: "test"
+            - name: POSTGRES_DB
+              value: "ffantasy_game_domain_db"
+          ports:
+            - containerPort: 5432
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db-game-domain
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5432
+  selector:
+    app: db-game-domain
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-game-logic
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db-game-logic
+  template:
+    metadata:
+      labels:
+        app: db-game-logic
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:latest
+          env:
+            - name: POSTGRES_USER
+              value: "test"
+            - name: POSTGRES_PASSWORD
+              value: "test"
+            - name: POSTGRES_DB
+              value: "ffantasy_game_logic_db"
+          ports:
+            - containerPort: 5432
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db-game-logic
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5432
+  selector:
+    app: db-game-logic

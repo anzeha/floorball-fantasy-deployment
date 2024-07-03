@@ -1,0 +1,124 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: users
+  template:
+    metadata:
+      labels:
+        app: users
+    spec:
+      containers:
+        - name: users
+          image: anzeha/ffantasy.users:latest
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: app-config
+          env:
+            - name: CONNECTION_STRING
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: CONNECTION_STRING_USERS
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: users
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+  selector:
+    app: users
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: game-domain
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: game-domain
+  template:
+    metadata:
+      labels:
+        app: game-domain
+    spec:
+      containers:
+        - name: game-domain
+          image: anzeha/ffantasy.game_domain:latest
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: app-config
+          env:
+            - name: CONNECTION_STRING
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: CONNECTION_STRING_GAME_DOMAIN
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: game-domain
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+  selector:
+    app: game-domain
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: game-logic
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: game-logic
+  template:
+    metadata:
+      labels:
+        app: game-logic
+    spec:
+      containers:
+        - name: game-logic
+          image: anzeha/ffantasy.game_logic:latest
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: app-config
+          env:
+            - name: CONNECTION_STRING
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: CONNECTION_STRING_GAME_LOGIC
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: game-logic
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+  selector:
+    app: game-logic

@@ -2,18 +2,12 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: app-config
-  namespace: floorball-fantasy
 data:
-  PG_USERNAME: "admin"
-  PG_PASSWORD: "password"
-  PG_DATABASE: "floorball_fantasy"
-  PG_PORT: "5432"
-  PG_HOST: "postgres-service"
-  ADMIN_EMAIL: "testtest@gmail.com"
-  ADMIN_PASSWORD: "admin"
-  ADMIN_USERNAME: "admin"
-  JWT_SECRET: "abcdefgh"
-  MAILER_EMAIL: "info.test@gmail.com"
-  MAILER_PASSWORD: "lol"
-  PASSWORD_RESET_URL: "http://localhost:4200/resetPassword"
-  PORT: "8080"
+  CONNECTION_STRING_USERS: Server=db_users;Port=5432;Database=ffantasy_users_db;User Id=test;Password=test;
+  CONNECTION_STRING_GAME_DOMAIN: Server=db_game_domain;Port=5432;Database=ffantasy_game_domain_db;User Id=test;Password=test;
+  CONNECTION_STRING_GAME_LOGIC: Server=db_game_logic;Port=5432;Database=ffantasy_game_logic_db;User Id=test;Password=test;
+  JWT_SECRET: GNN/KHkBmyc3zKKQYLZW3Lv8W35t/6dfi4uRRrJI7QKbymFKn4Xs24viQDo+zn1/
+  ADMIN_PASSWORD: Password1!
+  GAME_DOMAIN_URL: http://game-domain:8080
+  USERS_URL: http://users:8080
+  GAME_LOGIC_URL: http://game-logic:8080

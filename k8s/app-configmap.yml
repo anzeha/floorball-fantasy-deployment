@@ -3,9 +3,9 @@ kind: ConfigMap
 metadata:
   name: app-config
 data:
-  CONNECTION_STRING_USERS: Server=db_users;Port=5432;Database=ffantasy_users_db;User Id=test;Password=test;
-  CONNECTION_STRING_GAME_DOMAIN: Server=db_game_domain;Port=5432;Database=ffantasy_game_domain_db;User Id=test;Password=test;
-  CONNECTION_STRING_GAME_LOGIC: Server=db_game_logic;Port=5432;Database=ffantasy_game_logic_db;User Id=test;Password=test;
+  CONNECTION_STRING_USERS: Server=db-users;Port=5432;Database=ffantasy_users_db;User Id=test;Password=test;
+  CONNECTION_STRING_GAME_DOMAIN: Server=db-game-domain;Port=5432;Database=ffantasy_game_domain_db;User Id=test;Password=test;
+  CONNECTION_STRING_GAME_LOGIC: Server=db-game-logic;Port=5432;Database=ffantasy_game_logic_db;User Id=test;Password=test;
   JWT_SECRET: GNN/KHkBmyc3zKKQYLZW3Lv8W35t/6dfi4uRRrJI7QKbymFKn4Xs24viQDo+zn1/
   ADMIN_PASSWORD: Password1!
   GAME_DOMAIN_URL: http://game-domain:8080

@@ -1,7 +1,0 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: argo-apps
-#   annotations:
-#     argocd-image-updater.argoproj.io/image-list: myalias=anzeha/ffantasy.users
-#     argocd-image-updater.argoproj.io/myalias.update-strategy: latest

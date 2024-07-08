@@ -1,5 +1,5 @@
 applications:
-    - name: argo-apps
+    - name: argoapp
       namespace: argocd
       additionalAnnotations: 
         argocd-image-updater.argoproj.io/image-list: myalias=anzeha/ffantasy.users

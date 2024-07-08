@@ -11,6 +11,9 @@ spec:
     metadata:
       labels:
         app: users
+      annotations:
+        argocd-image-updater.argoproj.io/image-list: myalias=anzeha/ffantasy.users
+        argocd-image-updater.argoproj.io/myalias.update-strategy: latest
     spec:
       containers:
         - name: users

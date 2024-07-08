@@ -83,6 +83,10 @@ resource "helm_release" "argo_image_updater" {
   chart      = "argocd-image-updater"
   create_namespace = true
   namespace = "argocd"
+
+  values = [
+    "${file("./values/image-updater-values.yml")}"
+  ]
 }
 
 resource "helm_release" "atlas_operator" {

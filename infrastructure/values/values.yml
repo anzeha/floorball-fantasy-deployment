@@ -1,6 +1,9 @@
 applications:
     - name: argo-apps
       namespace: argocd
+      annotations:
+        argocd-image-updater.argoproj.io/image-list: myalias=anzeha/ffantasy.users
+        argocd-image-updater.argoproj.io/myalias.update-strategy: latest
       destination:
         namespace: floorball-fantasy
         server: https://kubernetes.default.svc

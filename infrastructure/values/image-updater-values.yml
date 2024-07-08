@@ -105,7 +105,7 @@ volumes: []
 
 config:
   # -- API kind that is used to manage Argo CD applications (`kubernetes` or `argocd`)
-  applicationsAPIKind: ""
+  applicationsAPIKind: "kubernetes"
 
   # Described in detail here https://argocd-image-updater.readthedocs.io/en/stable/install/reference/#flags
   # Note: this is only relevant if config.applicationsAPIKind == 'argocd'
@@ -134,7 +134,7 @@ config:
   gitCommitTemplate: ""
 
   # -- Argo CD Image Update log level
-  logLevel: "info"
+  logLevel: "debug"
 
   # -- Argo CD Image Updater registries list configuration. More information [here](https://argocd-image-updater.readthedocs.io/en/stable/configuration/registries/)
   registries: 

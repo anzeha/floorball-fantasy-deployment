@@ -84,6 +84,8 @@ resource "helm_release" "argo_image_updater" {
   create_namespace = true
   namespace = "argocd"
 
+  depends_on = [ helm_release.argo_apps ]
+
   values = [
     "${file("./values/image-updater-values.yml")}"
   ]

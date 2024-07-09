@@ -1,4 +1,5 @@
 infrastructure/dev-cluster-config
+tmp
 
 # Local .terraform directories
 **/.terraform/*

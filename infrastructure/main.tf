@@ -44,19 +44,9 @@ resource "htpasswd_password" "hash" {
   password = var.argo_admin_password
 }
 
-resource "kubernetes_secret_v1" "git_creds" {
-  metadata {
-    name = "git-creds"
-  }
-
-  data = {
-    username = var.github_username
-    password = var.github_password
-  }
-}
 
 resource "helm_release" "argo" {
-  depends_on = [ htpasswd_password.hash,  kubernetes_secret_v1.git_creds]
+  depends_on = [ htpasswd_password.hash]
   name = "argocd"
   repository = "https://argoproj.github.io/argo-helm"
   chart      = "argo-cd"
@@ -88,6 +78,23 @@ resource "helm_release" "argo_apps" {
   ]
 }
 
+resource "kubernetes_secret_v1" "git_creds" {
+  depends_on = [ helm_release.argo_apps ]
+  metadata {
+    name = "repo-deploy-key"
+    namespace = "argocd"
+  }
+
+
+  data = {
+    sshPrivateKey = filebase64("../tmp/id_rsa")
+    username = "anzeha"
+    password = filebase64("../tmp/id_rsa")
+  }
+
+  type = "Opaque"
+}
+
 resource "helm_release" "argo_image_updater" {
   name = "argocd-image-updater"
   repository = "https://argoproj.github.io/argo-helm"
@@ -100,6 +107,7 @@ resource "helm_release" "argo_image_updater" {
   values = [
     "${file("./values/image-updater-values.yml")}"
   ]
+  
 }
 
 resource "helm_release" "atlas_operator" {

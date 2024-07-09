@@ -3,7 +3,8 @@ applications:
       namespace: argocd
       additionalAnnotations: 
         argocd-image-updater.argoproj.io/image-list: myalias=anzeha/ffantasy.users
-        argocd-image-updater.argoproj.io/myalias.update-strategy: latest
+        argocd-image-updater.argoproj.io/git-branch: main
+        argocd-image-updater.argoproj.io/write-back-method: git:secret:default/git-creds
       destination:
         namespace: floorball-fantasy
         server: https://kubernetes.default.svc

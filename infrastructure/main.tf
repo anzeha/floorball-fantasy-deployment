@@ -44,8 +44,19 @@ resource "htpasswd_password" "hash" {
   password = var.argo_admin_password
 }
 
+resource "kubernetes_secret_v1" "git_creds" {
+  metadata {
+    name = "git-creds"
+  }
+
+  data = {
+    username = var.github_username
+    password = var.github_password
+  }
+}
+
 resource "helm_release" "argo" {
-  depends_on = [ htpasswd_password.hash ]
+  depends_on = [ htpasswd_password.hash,  kubernetes_secret_v1.git_creds]
   name = "argocd"
   repository = "https://argoproj.github.io/argo-helm"
   chart      = "argo-cd"
@@ -72,9 +83,9 @@ resource "helm_release" "argo_apps" {
   namespace = "argocd"
   version    = "0.0.8"
 
-  values = [
-    "${file("./values/values.yml")}"
-  ]
+  # values = [
+  #   "${file("./values/values.yml")}"
+  # ]
 }
 
 resource "helm_release" "argo_image_updater" {

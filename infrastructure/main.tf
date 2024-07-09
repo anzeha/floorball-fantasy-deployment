@@ -83,9 +83,9 @@ resource "helm_release" "argo_apps" {
   namespace = "argocd"
   version    = "0.0.8"
 
-  # values = [
-  #   "${file("./values/values.yml")}"
-  # ]
+  values = [
+    "${file("./values/values.yml")}"
+  ]
 }
 
 resource "helm_release" "argo_image_updater" {

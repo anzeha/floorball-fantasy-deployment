@@ -1,0 +1,4 @@
+resources:
+  - app-configmap.yml
+  - app-deployments.yml
+  - db-deployments.yml

@@ -1,0 +1,5 @@
+kustomize:
+  images:
+  - anzeha/ffantasy.users:92ac8c7
+  - anzeha/ffantasy.game_domain:92ac8c7
+  - anzeha/ffantasy.game_logic:92ac8c7

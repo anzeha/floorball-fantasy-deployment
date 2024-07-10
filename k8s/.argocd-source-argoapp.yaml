@@ -1,0 +1,3 @@
+kustomize:
+  images:
+  - anzeha/ffantasy.users:92ac8c7

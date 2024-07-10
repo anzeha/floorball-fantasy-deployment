@@ -87,9 +87,8 @@ resource "kubernetes_secret_v1" "git_creds" {
 
 
   data = {
-    sshPrivateKey = filebase64("../tmp/id_rsa")
     username = "anzeha"
-    password = filebase64("../tmp/id_rsa")
+    password = var.github_token
   }
 
   type = "Opaque"

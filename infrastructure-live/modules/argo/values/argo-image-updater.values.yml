@@ -1,0 +1,16 @@
+# -- Replica count for the deployment. It is not advised to run more than one replica.
+replicaCount: 1
+config:
+  # -- API kind that is used to manage Argo CD applications (`kubernetes` or `argocd`)
+  applicationsAPIKind: "kubernetes"
+
+  # -- Argo CD Image Update log level
+  logLevel: "debug"
+
+  # -- Argo CD Image Updater registries list configuration. More information [here](https://argocd-image-updater.readthedocs.io/en/stable/configuration/registries/)
+  registries: 
+    - name: Docker Hub
+      prefix: docker.io
+      api_url: https://registry-1.docker.io
+      ping: yes
+  

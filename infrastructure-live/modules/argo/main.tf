@@ -32,6 +32,7 @@ resource "helm_release" "argocd" {
 
 #TODO update te newer version
 resource "helm_release" "argo_apps" {
+  count = var.argo_apps ? 1: 0
   depends_on       = [htpasswd_password.hash, helm_release.argocd]
   name             = "argocd-apps"
   repository       = "https://argoproj.github.io/argo-helm"
@@ -46,6 +47,7 @@ resource "helm_release" "argo_apps" {
 }
 
 resource "kubernetes_secret_v1" "git_creds" {
+  count = var.argo_image_updater ? 1: 0
   depends_on = [helm_release.argo_apps]
   metadata {
     name      = "repo-deploy-key"
@@ -54,12 +56,13 @@ resource "kubernetes_secret_v1" "git_creds" {
 
   data = {
     username = "anzeha"
-    password = var.github_token
+    password = var.github_username
   }
   type = "Opaque"
 }
 
 resource "helm_release" "argo_image_updater" {
+  count = var.argo_image_updater ? 1: 0
   name             = "argocd-image-updater"
   repository       = "https://argoproj.github.io/argo-helm"
   chart            = "argocd-image-updater"

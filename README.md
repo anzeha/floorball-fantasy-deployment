@@ -7,3 +7,7 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 ```
 kubectl port-forward svc/argocd-server -n argocd 8080:443
 ```
+
+```
+gcloud container clusters get-credentials $(terraform output -raw kubernetes_cluster_name)
+```

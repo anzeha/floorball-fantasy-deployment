@@ -23,8 +23,6 @@ applications:
           recurse: false
           jsonnet: {}
       syncPolicy:
-        syncOptions:
-          createNamespace: true
         automated:
           selfHeal: true
           prune: true

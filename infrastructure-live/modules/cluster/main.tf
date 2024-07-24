@@ -86,53 +86,53 @@ module "gke_auth" {
   depends_on   = [module.gke.name]
 }
 
-resource "google_compute_address" "ingress" {
-  name    = format("%s-%s-ingress-ip", var.cluster_name, var.env)
-  project = var.project_id
-  region  = var.region
-}
+# resource "google_compute_address" "ingress" {
+#   name    = format("%s-%s-ingress-ip", var.cluster_name, var.env)
+#   project = var.project_id
+#   region  = var.region
+# }
 
 
-module "nginx-controller" {
-  count = var.nginx ? 1 : 0
-  source = "terraform-iaac/nginx-controller/helm"
+# module "nginx-controller" {
+#   count = var.deploy_nginx ? 1 : 0
+#   source = "terraform-iaac/nginx-controller/helm"
 
-  ip_address = google_compute_address.ingress.address
+#   ip_address = google_compute_address.ingress.address
 
-}
+# }
 
 
-resource "kubernetes_ingress_v1" "this" {
-  count = var.argocd_ingress ? 1 : 0
-  metadata {
-    name      = "argocd-server-http-ingress"
-    namespace = "argocd"
-    annotations = {
-      "kubernetes.io/ingress.class": "nginx"
-      "nginx.ingress.kubernetes.io/force-ssl-redirect": "true"
-      "ingress.kubernetes.io/ssl-redirect": "true"
-      "nginx.ingress.kubernetes.io/backend-protocol": "HTTPS"
-    }
-  }
+# resource "kubernetes_ingress_v1" "this" {
+#   count = var.argocd_ingress ? 1 : 0
+#   metadata {
+#     name      = "argocd-server-http-ingress"
+#     namespace = "argocd"
+#     annotations = {
+#       "kubernetes.io/ingress.class": "nginx"
+#       "nginx.ingress.kubernetes.io/force-ssl-redirect": "true"
+#       "ingress.kubernetes.io/ssl-redirect": "true"
+#       "nginx.ingress.kubernetes.io/backend-protocol": "HTTPS"
+#     }
+#   }
 
-  spec {
-    rule {
+#   spec {
+#     rule {
 
-      http {
-        path {
-          path     = "/"
-          path_type = "Prefix"
+#       http {
+#         path {
+#           path     = "/"
+#           path_type = "Prefix"
 
-          backend {
-            service {
-              name = var.argo_cd_service_name
-              port {
-                name = "http"
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
+#           backend {
+#             service {
+#               name = var.argo_cd_service_name
+#               port {
+#                 name = "http"
+#               }
+#             }
+#           }
+#         }
+#       }
+#     }
+#   }
+# }

@@ -3,7 +3,6 @@ variable "project_id" {
 }
 variable "env" {
   type    = string
-  default = "dev"
 }
 
 variable "cluster_name" {
@@ -23,19 +22,15 @@ variable "ip_range_services_name" {
   type    = string
   default = "ip-range-services"
 }
-variable "argo_cd_namespace"{
-  type = string
-  default = "argocd"
-}
-variable "argo_cd_service_name"{
-  type = string
-  default = "argocd-server"
-}
-variable "nginx" {
-  type = bool
-  default = true
-}
-variable "argocd_ingress" {
+# variable "argo_cd_namespace"{
+#   type = string
+#   default = "argocd"
+# }
+# variable "argo_cd_service_name"{
+#   type = string
+#   default = "argocd-server"
+# }
+variable "deploy_nginx" {
   type = bool
   default = true
 }

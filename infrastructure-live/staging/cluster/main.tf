@@ -1,17 +1,20 @@
 provider "google" {
-  project = "mythic-cocoa-429511-s9"
+  project = var.project_id
   region  = "europe-west4-a"
 }
 
 module "cluster" {
   source = "../../modules/cluster"
 
-  project_id     = "mythic-cocoa-429511-s9"
-  argocd_ingress = false
+  project_id = var.project_id
+  env        = "staging"
 }
 
-provider "kubernetes" {
-  cluster_ca_certificate = module.cluster.cluster_ca_certificate
-  host                   = module.cluster.host
-  token                  = module.cluster.token
+provider "helm" {
+  kubernetes {
+    cluster_ca_certificate = module.cluster.cluster_ca_certificate
+    host                   = module.cluster.host
+    token                  = module.cluster.token
+  }
 }
+

@@ -9,7 +9,7 @@ resource "helm_release" "argocd" {
   repository       = "https://argoproj.github.io/argo-helm"
   chart            = "argo-cd"
   create_namespace = true
-  namespace        = "argocd"
+  namespace        = var.argocd_namespace
   set {
     name  = "configs.secret.argocdServerAdminPassword"
     value = htpasswd_password.hash.bcrypt
@@ -38,11 +38,11 @@ resource "helm_release" "argo_apps" {
   repository       = "https://argoproj.github.io/argo-helm"
   chart            = "argocd-apps"
   create_namespace = true
-  namespace        = "argocd"
+  namespace        = var.argocd_namespace
   version          = "0.0.8"
 
   values = [
-    "${file("./values/argo-apps.values.yml")}"
+    var.argo_apps_values
   ]
 }
 
@@ -51,7 +51,7 @@ resource "kubernetes_secret_v1" "git_creds" {
   depends_on = [helm_release.argo_apps]
   metadata {
     name      = "repo-deploy-key"
-    namespace = "argocd"
+    namespace = var.argocd_namespace
   }
 
   data = {
@@ -67,20 +67,56 @@ resource "helm_release" "argo_image_updater" {
   repository       = "https://argoproj.github.io/argo-helm"
   chart            = "argocd-image-updater"
   create_namespace = true
-  namespace        = "argocd"
+  namespace        = var.argocd_namespace
 
   depends_on = [helm_release.argo_apps]
 
   values = [
-    "${file("./values/argo-image-updater.values.yml")}"
+    var.argo_image_updater_values
   ]
 }
 
 data "kubernetes_service" "argocd-server" {
   metadata {
     name      = "argocd-server"
-    namespace = "argocd"
+    namespace = var.argocd_namespace
   }
   depends_on = [helm_release.argocd]
 }
 
+
+resource "kubernetes_ingress_v1" "this" {
+  depends_on = [ helm_release.argocd ]
+  count = var.setup_argocd_ingress ? 1 : 0
+  metadata {
+    name      = "argocd-server-http-ingress"
+    namespace = var.argocd_namespace
+    annotations = {
+      "kubernetes.io/ingress.class": "nginx"
+      "nginx.ingress.kubernetes.io/force-ssl-redirect": "true"
+      "ingress.kubernetes.io/ssl-redirect": "true"
+      "nginx.ingress.kubernetes.io/backend-protocol": "HTTPS"
+    }
+  }
+
+  spec {
+    rule {
+
+      http {
+        path {
+          path     = "/"
+          path_type = "Prefix"
+
+          backend {
+            service {
+              name = "argocd-server"
+              port {
+                name = "http"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

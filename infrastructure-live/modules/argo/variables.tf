@@ -2,6 +2,10 @@ variable "env" {
   type = string
   description = "Environment name"
 }
+variable "argocd_namespace" {
+  type = string
+  default = "argocd"
+}
 
 variable "argo_admin_password" {
     type = string
@@ -27,5 +31,17 @@ variable "github_username" {
 
 variable "github_token" {
   type = string
+}
+variable "setup_argocd_ingress" {
+  type = bool
+  default = true
+}
+variable "argo_image_updater_values" {
+  type = string
+  default = ""
+}
+variable "argo_apps_values" {
+  type = string
+  default = ""
 }
 

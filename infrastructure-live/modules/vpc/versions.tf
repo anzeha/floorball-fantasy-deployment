@@ -7,5 +7,9 @@ terraform {
       version = "~> 1.2.1"
       source = "loafoe/htpasswd"
     }
+    google = {
+      source  = "hashicorp/google"
+      version = "~> 5.0"
+    }
   }
 }

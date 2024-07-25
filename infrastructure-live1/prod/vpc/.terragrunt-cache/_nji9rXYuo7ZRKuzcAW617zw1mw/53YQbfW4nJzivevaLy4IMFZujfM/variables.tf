@@ -33,6 +33,10 @@ variable "ip_range_services_name" {
   type    = string
   default = "ip-range-services"
 }
+variable "argocd_ingress" {
+  type = bool
+  default = true
+}
 variable "nginx" {
   type = bool
   default = true

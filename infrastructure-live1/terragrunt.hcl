@@ -24,5 +24,6 @@ provider "google" {
   region  = "${local.config_vars.locals.region}"
   project = "${local.config_vars.locals.project_id}"
 }
+data "google_client_config" "default" {}
 EOF
 }

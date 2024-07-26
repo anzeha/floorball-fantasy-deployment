@@ -2,7 +2,6 @@ module "vpc" {
   source       = "terraform-google-modules/network/google"
   project_id   = var.project_id
   network_name = "${var.network}-${var.env}"
-  delete_default_internet_gateway_routes = true
 
   subnets = [
     {
@@ -25,14 +24,4 @@ module "vpc" {
       }
     ]
   }
-
-  routes = [
-        {
-            name                   = "egress-internet-${var.env}"
-            description            = "route through IGW to access internet"
-            destination_range      = "0.0.0.0/0"
-            tags                   = "egress-inet"
-            next_hop_internet      = "true"
-        }
-    ]
 }

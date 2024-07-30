@@ -27,10 +27,12 @@ variable "argo_image_updater" {
 variable "github_username" {
   type = string
   description = "Github username."
+  sensitive = true
 }
 
 variable "github_token" {
   type = string
+  sensitive = true
 }
 variable "setup_argocd_ingress" {
   type = bool

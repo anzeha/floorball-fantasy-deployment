@@ -16,8 +16,8 @@ include "env" {
 inputs = {
     env            = include.env.locals.env
 
-    github_username = ""
-    github_token = ""
+    github_username = include.root.locals.secret_vars.github_username
+    github_token = include.root.locals.secret_vars.github_token
 
     argo_image_updater_values = "${file("./values/argo-image-updater.values.yml")}"
     argo_apps_values = "${file("./values/argo-apps.values.yml")}"

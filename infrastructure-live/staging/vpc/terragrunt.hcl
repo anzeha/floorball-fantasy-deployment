@@ -16,5 +16,5 @@ include "env" {
 
 inputs = {
     env            = include.env.locals.env
-    project_id     = include.root.locals.config_vars.locals.project_id
+    project_id     = include.root.locals.project_id
 }

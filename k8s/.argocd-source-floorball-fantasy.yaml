@@ -1,5 +1,5 @@
 kustomize:
   images:
-  - anzeha/ffantasy.users:92ac8c7
-  - anzeha/ffantasy.game_domain:92ac8c7
-  - anzeha/ffantasy.game_logic:92ac8c7
+  - anzeha/ffantasy.users:a460222
+  - anzeha/ffantasy.game_domain:a460222
+  - anzeha/ffantasy.game_logic:a460222

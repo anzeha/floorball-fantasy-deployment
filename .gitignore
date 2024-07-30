@@ -1,6 +1,6 @@
 infrastructure/dev-cluster-config
 tmp
-infrastructure-live1/config.hcl
+infrastructure-live/config.hcl
 
 # Local .terraform directories
 **/.terraform/*

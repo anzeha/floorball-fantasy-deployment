@@ -34,7 +34,7 @@ jobs:
     - name: 'Use gcloud CLI'
       run: 'gcloud info'
     - name: digger run
-        uses: diggerhq/digger@vLatest
+        uses: diggerhq/digger@latest
         with:
           digger-spec: ${{ inputs.spec }}
           setup-aws: false

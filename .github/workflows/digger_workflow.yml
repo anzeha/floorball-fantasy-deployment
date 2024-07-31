@@ -36,7 +36,6 @@ jobs:
     - name: digger run
       uses: diggerhq/digger@latest
       with:
-        digger-spec: ${{ inputs.spec }}
         setup-aws: false
       env:
         GITHUB_CONTEXT: ${{ toJson(github) }}

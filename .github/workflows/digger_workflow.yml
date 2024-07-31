@@ -33,9 +33,11 @@ jobs:
     - name: digger run
       uses: diggerhq/digger@latest
       with:
-        setup-terragrunt: true
         disable-locking: true
         no-backend: true
+        setup-google-cloud: true
+        google-auth-credentials: '${{ secrets.GCP_CREDENTIALS }}'
+        setup-terragrunt: true
       env:
         GITHUB_CONTEXT: ${{ toJson(github) }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

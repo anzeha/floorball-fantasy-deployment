@@ -1,4 +1,7 @@
 projects:
-- name: production
-  dir: infrastructure-live/
+- name: prod
+  dir: infrastructure-live/prod
+  terragrunt: true
+- name: staging
+  dir: infrastructure-live/staging
   terragrunt: true

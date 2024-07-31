@@ -1,13 +1,18 @@
 remote_state {
-  backend = "local"
+  backend = "gcs"
+
   generate = {
-    path      = "backend.tf"
+    path      = "state.tf"
     if_exists = "overwrite_terragrunt"
   }
 
   config = {
-    path = "${path_relative_to_include()}/terraform.tfstate"
+    prefix = "${path_relative_to_include()}/terraform.tfstate"
+    bucket   = local.bucket_name
+    project  = local.project_id
+    location = local.region
   }
+
 }
 
 locals{
@@ -17,6 +22,7 @@ locals{
   # Extract the variables we need for easy access
   region = local.config_vars.locals.region
   project_id   = local.config_vars.locals.project_id
+  bucket_name = local.config_vars.locals.bucket_name
 }
 
 

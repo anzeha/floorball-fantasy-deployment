@@ -1,4 +1,5 @@
 locals{
-    project_id= "mythic-cocoa-429511-s9"
+    project_id= "floorball-fantasy"
     region="europe-west4"
+    bucket_name="${local.project_id}-bucket"
 }

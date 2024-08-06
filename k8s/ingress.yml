@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: floorballfantasy-ingress
+  name: floorball-fantasy-ingress
   annotations:
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
@@ -12,18 +12,23 @@ spec:
   - http:
       paths:
       - path: /users
+        pathType: Prefix
         backend:
-          serviceName: users
-          servicePort: 8080
+          service:
+            name: users
+            port:
+              number: 8080
       - path: /game-domain
+        pathType: Prefix
         backend:
-          serviceName: game-domain
-          servicePort: 8080
-      - path: /check_login
+          service:
+            name: game-domain
+            port:
+              number: 8080
+      - path: /game-logic
+        pathType: Prefix
         backend:
-          serviceName: game-logic
-          servicePort: 8080
-      - path: /applications
-        backend:
-          serviceName: flask-app
-          servicePort: 8080
+          service:
+            name: game-logic
+            port:
+              number: 8080

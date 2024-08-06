@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: logger-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /users
+        backend:
+          serviceName: users
+          servicePort: 8080
+      - path: /game-domain
+        backend:
+          serviceName: game-domain
+          servicePort: 8080
+      - path: /check_login
+        backend:
+          serviceName: game-logic
+          servicePort: 8080
+      - path: /applications
+        backend:
+          serviceName: flask-app
+          servicePort: 8080

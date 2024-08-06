@@ -3,8 +3,10 @@ kind: Ingress
 metadata:
   name: floorball-fantasy-ingress
   namespace: floorball-fantasy
+  labels:
+    app.kubernetes.io/name: dj-ms-core
   annotations:
-    kubernetes.io/ingress.class: "nginx"
+    kubernetes.io/ingress.class: "floorball-fantasy-ingress"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"

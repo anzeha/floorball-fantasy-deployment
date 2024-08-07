@@ -20,19 +20,19 @@ spec:
           service:
             name: users
             port:
-              number: 8080
+              number: 80
       - path: /game-domain
         pathType: Prefix
         backend:
           service:
             name: game-domain
             port:
-              number: 8080
+              number: 80
       - path: /game-logic
         pathType: Prefix
         backend:
           service:
             name: game-logic
             port:
-              number: 8080
+              number: 80
   ingressClassName: nginx

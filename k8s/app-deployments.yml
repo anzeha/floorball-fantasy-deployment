@@ -12,7 +12,6 @@ spec:
       labels:
         app: users
     spec:
-      type: LoadBalancer
       containers:
         - name: users
           image: anzeha/ffantasy.users:latest
@@ -34,7 +33,7 @@ kind: Service
 metadata:
   name: users
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   ports:
     - port: 8080
   selector:

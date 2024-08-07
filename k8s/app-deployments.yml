@@ -12,6 +12,7 @@ spec:
       labels:
         app: users
     spec:
+      type: LoadBalancer
       containers:
         - name: users
           image: anzeha/ffantasy.users:latest

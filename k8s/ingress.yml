@@ -35,3 +35,4 @@ spec:
             name: game-logic
             port:
               number: 8080
+  ingressClassName: nginx

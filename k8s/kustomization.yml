@@ -5,3 +5,4 @@ resources:
   - app-deployments.yml
   - db-deployments.yml
   - ingress.yml
+  - namespace.yml
